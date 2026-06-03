@@ -2,7 +2,7 @@
 # 通过 CloakBrowser CDP 获取网页 HTML
 # 用法: bash fetch_url.sh <url>
 
-CDP="http://localhost:9222"
+CDP="http://10.13.3.8:9222"
 URL="$1"
 
 if [ -z "$URL" ]; then

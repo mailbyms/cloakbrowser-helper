@@ -1,7 +1,17 @@
 services:
-    cloakbrowser:
-        image: registry.cn-shenzhen.aliyuncs.com/janeyre/cloakbrowser
-        restart: always
-        ports:
-            - 9222:9222
-        command: cloakserve
+  cloakbrowser:
+    image: registry.cn-shenzhen.aliyuncs.com/janeyre/cloakbrowser
+    restart: always
+    ports:
+      - 9222:9222
+    command: cloakserve
+
+  helper-api:
+    build: .
+    restart: always
+    ports:
+      - 3000:3000
+    environment:
+      - CDP_URL=http://cloakbrowser:9222
+    depends_on:
+      - cloakbrowser
