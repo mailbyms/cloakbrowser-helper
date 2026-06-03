@@ -1,0 +1,7 @@
+services:
+    cloakbrowser:
+        image: registry.cn-shenzhen.aliyuncs.com/janeyre/cloakbrowser
+        restart: always
+        ports:
+            - 9222:9222
+        command: cloakserve
