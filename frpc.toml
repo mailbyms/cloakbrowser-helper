@@ -1,0 +1,19 @@
+serverAddr = "frp.xxx.org"
+serverPort = 8443
+auth.token = "change_me_to_strong_token"
+
+# WebSocket 传输（经 Nginx WSS 反代）
+transport.protocol = "wss"
+
+# 日志（输出到 stdout，由 Docker 收集）
+log.to = "console"
+log.level = "debug"
+
+# 代理 cloakbrowser-helper 服务
+[[proxies]]
+name = "cloakbrowser-helper"
+type = "tcp"
+localIP = "helper-api"
+localPort = 3000
+# 指定服务器一个空闲的端口
+remotePort = 3005

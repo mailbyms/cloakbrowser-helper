@@ -1,0 +1,13 @@
+services:
+  frps:
+    # image: fatedier/frps:v0.69.1
+    image: registry.cn-shenzhen.aliyuncs.com/janeyre/frps:v0.69.1 
+    container_name: frps
+    command: ["-c", "/etc/frp/frps.toml"]
+    restart: always
+    volumes:
+      - ./frps.toml:/etc/frp/frps.toml
+    # 不对外暴露端口，全部由 Nginx 反代
+    # 7000: frpc 控制通道（Nginx 反代）
+    # 7500: Dashboard（Nginx 反代）
+    network_mode: host

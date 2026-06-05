@@ -1,5 +1,6 @@
 services:
   cloakbrowser:
+    #image: cloakhq/cloakbrowser
     image: registry.cn-shenzhen.aliyuncs.com/janeyre/cloakbrowser
     restart: always
     ports:
@@ -7,7 +8,7 @@ services:
     command: cloakserve
 
   helper-api:
-    build: .
+    image: registry.cn-shenzhen.aliyuncs.com/janeyre/cloakbrowser-helper
     restart: always
     ports:
       - 3000:3000
@@ -15,3 +16,14 @@ services:
       - CDP_URL=http://cloakbrowser:9222
     depends_on:
       - cloakbrowser
+
+  frpc:
+    #image: fatedier/frpc:v0.69.1
+    image: registry.cn-shenzhen.aliyuncs.com/janeyre/frpc:v0.69.1
+    restart: always
+    command: ["-c", "/etc/frp/frpc.toml"]
+    volumes:
+      - ./frpc.toml:/etc/frp/frpc.toml
+    depends_on:
+      - helper-api
+
