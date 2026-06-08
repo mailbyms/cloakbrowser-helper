@@ -4,27 +4,26 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 项目概述
 
-通过 CloakBrowser CDP 服务器获取网页 HTML 内容的工具，支持命令行和 API 服务两种方式。
+通过 CloakBrowser 隐身 Chromium 获取网页 HTML 内容的工具，支持命令行、API 服务和本地调试三种方式。
 
 ## 技术栈
 
 - **运行时**: Node.js + Bash
-- **依赖**: `playwright-core`
-- **协议**: Chrome DevTools Protocol (CDP)
-- **服务器镜像**: `registry.cn-shenzhen.aliyuncs.com/janeyre/cloakbrowser`
+- **依赖**: `cloakbrowser`（内置 Playwright + 隐身 Chromium 二进制）
+- **特性**: C++ 源码级指纹伪装，自动通过 Cloudflare 等反机器人检测
 
 ## 使用
 
 ```bash
-# 部署 CDP 服务器
-docker-compose up -d
-
 # 命令行方式
 bash fetch_url.sh "https://example.com"
 
-# API 服务方式
+# API 服务方式（headless）
 npm start
 # 然后调用: GET http://localhost:3000/fetch?url=https://example.com
+
+# 本地调试（弹出浏览器窗口）
+npm run debug -- "https://example.com"
 ```
 
 返回完整 HTML，自动处理 Cloudflare 验证等待。

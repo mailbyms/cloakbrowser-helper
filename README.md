@@ -1,6 +1,6 @@
 # CloakBrowser Helper
 
-通过 CloakBrowser CDP 服务器获取网页内容的工具，支持命令行和 API 服务两种方式。
+通过 CloakBrowser 隐身 Chromium 获取网页内容的工具，支持命令行、API 服务和本地调试三种方式。
 
 ## 快速开始（Docker 一键部署）
 
@@ -17,6 +17,8 @@ docker-compose up -d
 ```bash
 npm install
 ```
+
+首次运行会自动下载 CloakBrowser 隐身 Chromium 二进制（~535MB）。
 
 ### 命令行方式
 
@@ -36,18 +38,22 @@ npm start
 curl "http://localhost:3000/fetch?url=https://example.com"
 ```
 
+### 本地调试（弹出浏览器窗口）
+
+```bash
+npm run debug -- "https://example.com"
+```
+
 ## 环境变量
 
 | 变量 | 默认值 | 说明 |
 |------|--------|------|
-| `CDP_URL` | `http://10.13.3.8:9222` | CloakBrowser CDP 服务器地址 |
 | `PORT` | `3000` | API 服务监听端口 |
 
 ## 依赖
 
-- Node.js
-- [playwright-core](https://www.npmjs.com/package/playwright-core)
-- 运行中的 CloakBrowser CDP 服务器
+- Node.js >= 20
+- [cloakbrowser](https://www.npmjs.com/package/cloakbrowser)
 
 ## 外网访问（FRP 内网穿透）
 

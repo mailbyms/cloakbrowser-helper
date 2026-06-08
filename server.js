@@ -1,20 +1,18 @@
 const http = require('http');
 const { URL } = require('url');
-const { chromium } = require('playwright-core');
 
-const CDP = process.env.CDP_URL || 'http://10.13.3.8:9222';
 const PORT = process.env.PORT || 3000;
 
 async function fetchPage(targetUrl) {
-    const browser = await chromium.connectOverCDP(CDP, { timeout: 15000 });
+    const { launch } = await import('cloakbrowser');
+    const browser = await launch({ headless: true });
     try {
-        const context = browser.contexts()[0] || await browser.newContext();
-        const page = await context.newPage();
+        const page = await browser.newPage();
         await page.goto(targetUrl, { waitUntil: 'networkidle', timeout: 30000 });
 
         // 等待 Cloudflare 验证
         for (let i = 0; i < 15; i++) {
-            await page.waitForTimeout(1000);
+            await new Promise(r => setTimeout(r, 1000));
             const title = await page.title();
             if (!title.includes('moment') && !title.includes('Cloudflare')) break;
         }
